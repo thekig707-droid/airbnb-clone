@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h1>Airbnb Clone mein aapka swagat hai! 🚀</h1>
+      <h1>Airbnb Clone mein aapka swagat hai! "Goa Edition"🚀</h1>
       <h2>Hamari Properties:</h2>
       
       {listings.length === 0 ? (
