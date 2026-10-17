@@ -23,8 +23,8 @@ const listingSchema = new mongoose.Schema({
   },
   host: { 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', // Yeh sabse important hai: Yeh batayega ki kis User ne property add ki hai
-    required: true 
+    ref: 'User', 
+    required: false // <-- Isko false kiya taaki bina login chal jaye
   }
 }, { timestamps: true });
 

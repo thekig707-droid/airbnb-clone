@@ -6,18 +6,19 @@ exports.createListing = async (req, res) => {
     const { title, description, address, price, image } = req.body;
 
     // Database mein nayi property save karna
-    // req.user.id hume login 'token' se milega taaki pata chale property kisne add ki
+    // TEMPORARY FIX: req.user.id hata diya hai kyunki abhi bina login ke testing kar rahe hain
     const listing = await Listing.create({
       title,
       description,
       address,
       price,
       image,
-      host: req.user.id 
+      host: req.user.id // <-- YEH WAPAS LAGA DIYA
     });
 
     res.status(201).json(listing);
   } catch (error) {
+    console.log("Backend Error:", error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

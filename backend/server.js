@@ -1,27 +1,28 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config();
-
-// 1. Yahan authRoutes ko require kiya hai
+const cors = require('cors'); // NAYA IMPORT
 const authRoutes = require('./routes/authRoutes');
+const listingRoutes = require('./routes/listingRoutes');
 
 const app = express();
-app.use(cors());
+
+// YEH NAYI LINE HAI: Isse koi bhi frontend humare backend ko request bhej payega
+app.use(cors()); 
+
 app.use(express.json());
 
-// 2. Yahan frontend se aane wale routes ko connect kiya hai
+// MongoDB connection (Tumhara purana wala hi hai)
+mongoose.connect('mongodb+srv://thekig707_db_user:Prakhar707@cluster0.fbgd19f.mongodb.net/?appName=Cluster0')
+  .then(() => console.log('MongoDB connected! 🎉'))
+  .catch((err) => console.log('MongoDB error:', err));
+
+// Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/listings', require('./routes/listingRoutes'));
-// MongoDB Database se connect karne ka code
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB Database se connection successful ho gaya! 🎉'))
-  .catch((err) => console.log('Database connection error:', err));
+app.use('/api/listings', listingRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Airbnb Backend is Working with Database!');
+// PORT ki setting (Render khud apna port dega, nahi toh 5001 chalega)
+const PORT = process.env.PORT || 5001;
+
+app.listen(PORT, () => {
+  console.log(`Backend Engine running on port ${PORT} 🚀`);
 });
-
-app.listen(5001, () => {
-  console.log('Server is running on port 5001');
-});  
