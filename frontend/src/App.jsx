@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AddListing from './components/AddListing';
 import Auth from './components/Auth'; 
-import PropertyDetails from './components/PropertyDetails'; // NAYA IMPORT
+import PropertyDetails from './components/PropertyDetails';
 import './App.css';
 
 function MainApp() {
@@ -19,7 +19,8 @@ function MainApp() {
       setUser(JSON.parse(savedUser));
     }
 
-    fetch('http://localhost:5001/api/listings')
+    // YAHAN CHANGE HAI: localhost hataya
+    fetch('/api/listings')
       .then((response) => response.json())
       .then((data) => setListings(data))
       .catch((error) => console.log("Failed to fetch listings:", error));
@@ -30,7 +31,8 @@ function MainApp() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:5001/api/listings/${id}`, {
+      // YAHAN CHANGE HAI: localhost hataya
+      const response = await fetch(`/api/listings/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -99,7 +101,6 @@ function MainApp() {
               ) : (
                 <div className="listing-grid">
                   {listings.map((property) => (
-                    // YAHAN MAGIC HAI: Card pe click karte hi details page par jayega (navigate along with state data)
                     <article 
                       key={property._id} 
                       className="stay-card"
@@ -155,7 +156,7 @@ function MainApp() {
         } />
 
         {/* =========================================
-            2. PROPERTY DETAILS PAGE (NAYA ROUTE)
+            2. PROPERTY DETAILS PAGE
         ========================================== */}
         <Route path="/property/:id" element={<PropertyDetails />} />
 
@@ -191,7 +192,6 @@ function MainApp() {
                     if (!isOwner) return null; 
 
                     return (
-                      // Admin panel ke cards ko bhi clickable banaya hai
                       <article 
                         key={property._id} 
                         className="stay-card"
@@ -200,8 +200,6 @@ function MainApp() {
                       >
                         <div className="thumbnail-wrapper">
                           <img src={property.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"} alt={property.title} className="thumbnail" />
-                          
-                          {/* STOP PROPAGATION: Delete dabane se page change nahi hoga, bas property delete hogi */}
                           <button 
                             className="delete-btn" 
                             onClick={(e) => { e.stopPropagation(); handleDelete(property._id); }} 

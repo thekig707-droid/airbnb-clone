@@ -6,7 +6,7 @@ function AddListing({ onAddSuccess }) {
   const [address, setAddress] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState(''); 
-  const [isLoading, setIsLoading] = useState(false); // Naya state: Loading dikhane ke liye
+  const [isLoading, setIsLoading] = useState(false); 
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -21,7 +21,8 @@ function AddListing({ onAddSuccess }) {
     };
 
     try {
-      const response = await fetch('http://localhost:5001/api/listings', {
+      // YAHAN CHANGE HAI: localhost hataya
+      const response = await fetch('/api/listings', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
