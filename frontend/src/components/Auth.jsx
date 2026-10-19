@@ -13,8 +13,8 @@ function Auth({ onLoginSuccess }) {
     const payload = isLogin ? { email, password } : { name, email, password };
 
     try {
-      // YAHAN CHANGE HAI: localhost hataya, seedha endpoint call hoga
-      const response = await fetch(endpoint, {
+      // YAHAN NAYA LINK DALA HAI
+      const response = await fetch(`https://airbnb-clone-dam2.vercel.app${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

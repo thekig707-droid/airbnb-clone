@@ -19,8 +19,8 @@ function MainApp() {
       setUser(JSON.parse(savedUser));
     }
 
-    // YAHAN CHANGE HAI: localhost hataya
-    fetch('/api/listings')
+    // YAHAN NAYA LINK DALA HAI
+    fetch('https://airbnb-clone-dam2.vercel.app/api/listings')
       .then((response) => response.json())
       .then((data) => setListings(data))
       .catch((error) => console.log("Failed to fetch listings:", error));
@@ -31,8 +31,8 @@ function MainApp() {
     if (!confirmDelete) return;
 
     try {
-      // YAHAN CHANGE HAI: localhost hataya
-      const response = await fetch(`/api/listings/${id}`, {
+      // YAHAN NAYA LINK DALA HAI
+      const response = await fetch(`https://airbnb-clone-dam2.vercel.app/api/listings/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -59,9 +59,6 @@ function MainApp() {
       <Navbar />
 
       <Routes>
-        {/* =========================================
-            1. MAIN PUBLIC SITE (Aam logo ke liye)
-        ========================================== */}
         <Route path="/" element={
           <>
             <div style={{ background: '#ffffff', padding: '10px 5vw', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', borderBottom: '1px solid #ebebeb' }}>
@@ -125,7 +122,6 @@ function MainApp() {
               )}
             </main>
 
-            {/* PROFESSIONAL POPUP MODAL */}
             {showAuthModal && (
               <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
                 <div style={{ background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '12px', padding: '24px', position: 'relative' }}>
@@ -155,14 +151,8 @@ function MainApp() {
           </>
         } />
 
-        {/* =========================================
-            2. PROPERTY DETAILS PAGE
-        ========================================== */}
         <Route path="/property/:id" element={<PropertyDetails />} />
 
-        {/* =========================================
-            3. ADMIN / HOST DASHBOARD
-        ========================================== */}
         <Route path="/admin" element={
           <div style={{ padding: '20px 5vw', minHeight: '80vh', background: '#fafafa' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
@@ -226,7 +216,6 @@ function MainApp() {
   );
 }
 
-// Styling 
 const modalBtnStyle = { 
   position: 'relative', width: '100%', padding: '12px', borderRadius: '8px', 
   border: '1px solid #b0b0b0', background: '#fff', cursor: 'pointer', 

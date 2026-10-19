@@ -21,8 +21,8 @@ function AddListing({ onAddSuccess }) {
     };
 
     try {
-      // YAHAN CHANGE HAI: localhost hataya
-      const response = await fetch('/api/listings', {
+      // YAHAN NAYA LINK DALA HAI
+      const response = await fetch('https://airbnb-clone-dam2.vercel.app/api/listings', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
